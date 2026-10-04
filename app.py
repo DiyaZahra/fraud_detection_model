@@ -23,16 +23,30 @@ st.write('Enter the transaction details and the model will predict whether it lo
 
 txn_type = st.selectbox('Transaction type',
                         ['CASH_IN', 'CASH_OUT', 'DEBIT', 'PAYMENT', 'TRANSFER'])
-amount = st.number_input('Amount', min_value=0.0, value=1000.0, step=100.0)
-oldbalanceOrg = st.number_input('Sender balance before', min_value=0.0, value=5000.0, step=100.0)
-newbalanceOrig = st.number_input('Sender balance after', min_value=0.0, value=4000.0, step=100.0)
-oldbalanceDest = st.number_input('Receiver balance before', min_value=0.0, value=0.0, step=100.0)
-newbalanceDest = st.number_input('Receiver balance after', min_value=0.0, value=0.0, step=100.0)
+amount_text = st.text_input('Amount', placeholder='e.g. 181000')
+old_org_text = st.text_input('Sender balance before', placeholder='e.g. 181000')
+new_org_text = st.text_input('Sender balance after', placeholder='e.g. 0')
+old_dest_text = st.text_input('Receiver balance before', placeholder='e.g. 0')
+new_dest_text = st.text_input('Receiver balance after', placeholder='e.g. 0')
 hour = st.slider('Hour of day', 0, 23, 12)
 receiver = st.radio('Receiver type', ['Customer (C)', 'Merchant (M)'])
 destMerchant = 1 if receiver == 'Merchant (M)' else 0
 
 if st.button('Predict'):
+    try:
+        amount = float(amount_text.replace(',', ''))
+        oldbalanceOrg = float(old_org_text.replace(',', ''))
+        newbalanceOrig = float(new_org_text.replace(',', ''))
+        oldbalanceDest = float(old_dest_text.replace(',', ''))
+        newbalanceDest = float(new_dest_text.replace(',', ''))
+    except ValueError:
+        st.error('Please fill in all five number fields with valid numbers.')
+        st.stop()
+
+    if min(amount, oldbalanceOrg, newbalanceOrig, oldbalanceDest, newbalanceDest) < 0:
+        st.error('Numbers cannot be negative.')
+        st.stop()
+
     row = {
         'amount': amount,
         'oldbalanceOrg': oldbalanceOrg,
@@ -57,3 +71,4 @@ if st.button('Predict'):
         st.error(f'Likely FRAUD. Fraud probability: {prob:.2%}')
     else:
         st.success(f'Looks normal. Fraud probability: {prob:.2%}')
+
