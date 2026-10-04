@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from xgboost import XGBClassifier
+import joblib
 
 # Same column order as used in training
 COLUMNS = ['amount', 'oldbalanceOrg', 'newbalanceOrig', 'oldbalanceDest',
@@ -11,9 +11,7 @@ COLUMNS = ['amount', 'oldbalanceOrg', 'newbalanceOrig', 'oldbalanceDest',
 
 @st.cache_resource
 def load_model():
-    m = XGBClassifier()
-    m.load_model('fraud_model.json')
-    return m
+    return joblib.load('rf_model.joblib')
 
 
 model = load_model()
@@ -72,3 +70,4 @@ if st.button('Predict'):
     else:
         st.success(f'Looks normal. Fraud probability: {prob:.2%}')
 
+st.caption('Demo only: the model was trained on PaySim synthetic data and is not meant for real transactions.')
