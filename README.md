@@ -100,7 +100,7 @@ The Streamlit app lets a user enter the transaction type, amount, balances and r
 To run it locally
 
 ```bash
-git clone [REPOSITORY LINK]
+git clone [[REPOSITORY LINK]](https://github.com/DiyaZahra/fraud_detection_model)
 cd fraud_detection_model
 pip install -r requirements.txt
 streamlit run app.py
