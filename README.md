@@ -144,8 +144,10 @@ Python, pandas, NumPy, scikit-learn, XGBoost, Matplotlib, Seaborn, Streamlit, jo
 ## Author
 
 Diya Zahra
-LinkedIn: [LINKEDIN LINK]
-Email: [EMAIL]
+
+LinkedIn: [[LINKEDIN LINK]](https://www.linkedin.com/in/diya-z-0093b841a?utm_source=share_via&utm_content=profile&utm_medium=member_android)
+
+Email: diya90x@gmail.com
 
 ## Acknowledgements
 
